@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prometheus Personaltrainer Ausbildung</title>
+    <style>
+        :root {
+            --primary-color: #ff4d00;
+            --secondary-color: #333;
+            --accent-color: #ffd700;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --success-color: #28a745;
+            --flame-color-1: #ff7800;
+            --flame-color-2: #ff9d00;
+            --flame-color-3: #ffbd00;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .title-area {
+            text-align: left;
+        }
+
+        .title-area h1 {
+            margin-bottom: 0.5rem;
+            font-size: 1.8rem;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .intro p {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: var(--secondary-color);
+            padding: 1rem 0;
+            position: sticky;
+            top: 70px;
+            z-index: 900;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .main-nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        .main-nav li {
+            margin-right: 1.5rem;
+        }
+
+        .main-nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .main-nav a:hover {
+            color: var(--accent-color);
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .login-btn {
+            background: transparent;
+            border: 1px solid white;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .login-btn:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+
+        .signup-btn {
+            background-color: var(--primary-color);
+            border: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .signup-btn:hover {
+            background-color: #e64500;
+        }
+
+        /* Module Section */
+        .curriculum-title {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .curriculum-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .module {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .module:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .module-header {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .module-number {
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: var(--primary-color);
+            color: white;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .module-content {
+            padding: 1.5rem;
+        }
+
+        .module-content ul {
+            list-style-type: none;
+            margin-top: 1rem;
+        }
+
+        .module-content li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .module-content li:before {
+            content: "•";
+            color: var(--primary-color);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .module-footer {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 1.5rem;
+            background-color: #f1f1f1;
+            border-top: 1px solid #ddd;
+        }
+
+        .module-details {
+            display: flex;
+            align-items: center;
+            color: #666;
+        }
+
+        .module-details i {
+            margin-right: 5px;
+        }
+
+        .view-module-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+
+        .view-module-btn:hover {
+            background-color: #e64500;
+        }
+
+        /* Platform Features */
+        .features-section {
+            margin: 4rem 0;
+            background-color: #f5f5f5;
+            padding: 3rem 0;
+        }
+
+        .features-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .feature-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            height: 120px;
+            background-color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+        }
+
+        .feature-content {
+            padding: 1.5rem;
+        }
+
+        .feature-content h3 {
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 1.5rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #e64500;
+        }
+
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .benefits {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .benefit {
+            flex: 1;
+            min-width: 250px;
+            max-width: 300px;
+            text-align: center;
+            padding: 1.5rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .benefit-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        /* Learning Platform Specific Styles */
+        .platform-preview {
+            margin: 4rem 0;
+            padding: 2rem;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .preview-title {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .preview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .preview-item {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .preview-image {
+            height: 200px;
+            background-color: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 1.2rem;
+        }
+
+        .preview-content {
+            padding: 1.5rem;
+        }
+
+        .testimonial-section {
+            padding: 4rem 0;
+            background-color: #f5f5f5;
+        }
+
+        .testimonial-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .testimonial-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .author-image {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #ddd;
+            margin-right: 1rem;
+        }
+
+        .author-info h4 {
+            margin-bottom: 0.25rem;
+        }
+
+        .author-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .quote-icon {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 3rem;
+            color: #f0f0f0;
+        }
+
+        @media (max-width: 768px) {
+            .curriculum-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .benefits {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .header-content {
+                flex-direction: column;
+            }
+
+            .title-area {
+                text-align: center;
+                margin-bottom: 1rem;
+            }
+
+            .nav-container {
+                flex-direction: column;
+            }
+
+            .main-nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .main-nav li {
+                margin-right: 0;
+                margin-bottom: 0.5rem;
+            }
+
+            .auth-buttons {
+                margin-top: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="title-area">
+                <h1>Professionelle Personaltrainer Ausbildung</h1>
+                <p class="tagline">Werde zum Experten für individuelle Fitnessbetreuung</p>
+            </div>
+            <div class="logo-container">
+                <div class="logo-text">PROMETHEUS</div>
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <div class="nav-container">
+            <div class="main-nav">
+                <ul>
+                    <li><a href="#home">Startseite</a></li>
+                    <li><a href="#curriculum">Ausbildungsinhalte</a></li>
+                    <li><a href="#features">Plattform</a></li>
+                    <li><a href="#about">Über uns</a></li>
+                    <li><a href="#contact">Kontakt</a></li>
+                </ul>
+            </div>
+            <div class="auth-buttons">
+                <button class="login-btn">Einloggen</button>
+                <button class="signup-btn">Registrieren</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container" id="home">
+        <section class="intro">
+            <h2>Dein Weg zum zertifizierten Personaltrainer</h2>
+            <p>Unsere umfassende Online-Ausbildung vermittelt dir alle Kenntnisse und Fähigkeiten, die du für eine erfolgreiche Karriere als Personaltrainer benötigst. Von Anatomie und Trainingswissenschaft bis hin zu Kundenakquise und Geschäftsaufbau - wir bereiten dich optimal auf die Herausforderungen dieses dynamischen Berufsfeldes vor.</p>
+        </section>
+
+        <section id="curriculum">
+            <h2 class="curriculum-title">Ausbildungsinhalte</h2>
+            <div class="curriculum-grid">
+                <div class="module">
+                    <div class="module-header">
+                        <div class="module-number">1</div>
+                        <h3>Anatomie & Physiologie</h3>
+                    </div>
+                    <div class="module-content">
+                        <p>Fundiertes Wissen über den menschlichen Körper als Basis für effektives Training.</p>
+                        <ul>
+                            <li>Skelett- und Muskelsystem</li>
+                            <li>Gelenke und Bewegungsabläufe</li>
+                            <li>Herz-Kreislauf-System</li>
+                            <li>Nervensystem und motorische Kontrolle</li>
+                            <li>Energiebereitstellung</li>
+                        </ul>
+                    </div>
+                    <div class="module-footer">
+                        <div class="module-details">
+                            <span>8 Lektionen</span>
+                        </div>
+                        <button class="view-module-btn">Details ansehen</button>
+                    </div>
+                </div>
+
+                <div class="module">
+                    <div class="module-header">
+                        <div class="module-number">2</div>
+                        <h3>Biomechanik</h3>
+                    </div>
+                    <div class="module-content">
+                        <p>Verstehe die mechanischen Prinzipien menschlicher Bewegung.</p>
+                        <ul>
+                            <li>Bewegungsachsen und -ebenen</li>
+                            <li>Hebelprinzipien</li>
+                            <li>Kinetische Ketten</li>
+                            <li>Bewegungsanalyse</li>
+                            <li>Optimale Übungsausführung</li>
+                        </ul>
+                    </div>
+                    <div class="module-footer">
+                        <div class="module-details">
+                            <span>9 Lektionen</span>
+                        </div>
+                        <button class="view-module-btn">Details ansehen</button>
+                    </div>
+                </div>
+
+                <div class="module">
+                    <div class="module-header">
+                        <div class="module-number">3</div>
+                        <h3>Ernährung</h3>
+                    </div>
+                    <div class="module-content">
+                        <p>Ernährungswissenschaftliche Grundlagen für optimale Trainingsergebnisse.</p>
+                        <ul>
+                            <li>Makro- und Mikronährstoffe</li>
+                            <li>Energiebedarf und -bilanz</li>
+                            <li>Ernährung für Muskelaufbau</li>
+                            <li>Ernährung für Fettreduktion</li>
+                            <li>Nahrungsergänzungsmittel</li>
+                            <li>Individuelle Ernährungsstrategien</li>
+                        </ul>
+                    </div>
+                    <div class="module-footer">
+                        <div class="module-details">
+                            <span>8 Lektionen</span>
+                        </div>
+                        <button class="view-module-btn">Details ansehen</button>
+                    </div>
+                </div>
+
+                <div class="module">
+                    <div class="module-header">
+                        <div class="module-number">4</div>
+                        <h3>Trainingsplanung</h3>
+                    </div>
+                    <div class="module-content">
+                        <p>Konzeption effektiver und individueller Trainingsprogramme.</p>
+                        <ul>
+                            <li>Trainingsprinzipien</li>
+                            <li>Belastungsparameter</li>
+                            <li>Periodisierung</li>
+                            <li>Trainingsziele definieren</li>
+                            <li>Fortschrittsmonitoring</li>
+                            <li>Anpassungsstrategien</li>
+                        </ul>
+                    </div>
+                    <div class="module-footer">
+                        <div class="module-details">
+                            <span>9 Lektionen</span>
+                        </div>
+                        <button class="view-module-btn">Details ansehen</button>
+                    </div>
+                </div>
+
+                <div class="module">
+                    <div class="module-header">
+                        <div class="module-number">5</div>
+                        <h3>Kundenbetreuung</h3>
+                    </div>
+                    <div class="module-content">
+                        <p>Professioneller Umgang mit Kunden für langfristigen Trainingserfolg.</p>
+                        <ul>
+                            <li>Kommunikationstechniken</li>
+                            <li>Motivationsstrategien</li>
+                            <li>Bedarfsanalyse</li>
+                            <li>Zielvereinbarung</li>
+                            <li>Umgang mit schwierigen Situationen</li>
+                            <li>Kundenbindung</li>
+                        </ul>
+                    </div>
+                    <div class="module-footer">
+                        <div class="module-details">
+                            <span>7 Lektionen</span>
+                        </div>
+                        <button class="view-module-btn">Details ansehen</button>
+                    </div>
+                </div>
+
+                <div class="module">
+                    <div class="module-header">
+                        <div class="module-number">6</div>
+                        <h3>Post-Rehabilitation</h3>
+                    </div>
+                    <div class="module-content">
+                        <p>Training nach Verletzungen und mit gesundheitlichen Einschränkungen.</p>
+                        <ul>
+                            <li>Häufige Verletzungen im Sport</li>
+                            <li>Rehabilitationsphasen</li>
+                            <li>Belastungssteuerung</li>
+                            <li>Korrekturübungen</li>
+                            <li>Zusammenarbeit mit Ärzten und Therapeuten</li>
+                        </ul>
+                    </div>
+                    <div class="module-footer">
+                        <div class="module-details">
+                            <span>8 Lektionen</span>
+                        </div>
+                        <button class="view-module-btn">Details ansehen</button>
+                    </div>
+                </div>
+
+                <div class="module">
+                    <div class="module-header">
+                        <div class="module-number">7</div>
+                        <h3>Funktionelles Training</h3>
+                    </div>
+                    <div class="module-content">
+                        <p>Moderne Trainingsmethoden für ganzheitliche Fitness.</p>
+                        <ul>
+                            <li>Core-Training</li>
+                            <li>Mobility & Stability</li>
+                            <li>Körpergewichtstraining</li>
+                            <li>Freie Gewichte vs. Maschinen</li>
+                            <li>Propriozeptives Training</li>
+                            <li>Übungsprogressionen</li>
+                        </ul>
+                    </div>
+                    <div class="module-footer">
+                        <div class="module-details">
+                            <span>9 Lektionen</span>
+                        </div>
+                        <button class="view-module-btn">Details ansehen</button>
+                    </div>
+                </div>
+
+                <div class="module">
+                    <div class="module-header">
+                        <div class="module-number">8</div>
+                        <h3>Geschäftsaufbau</h3>
+                    </div>
+                    <div class="module-content">
+                        <p>Erfolgreiche Etablierung als Personaltrainer am Markt.</p>
+                        <ul>
+                            <li>Kundenakquise</li>
+                            <li>Marketing & Branding</li>
+                            <li>Social Media Strategien</li>
+                            <li>Preisgestaltung</li>
+                            <li>Rechtliche Grundlagen</li>
+                            <li>Geschäftsmodelle</li>
+                        </ul>
+                    </div>
+                    <div class="module-footer">
+                        <div class="module-details">
+                            <span>8 Lektionen</span>
+                        </div>
+                        <button class="view-module-btn">Details ansehen</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="platform-preview">
+            <h2 class="preview-title">Unsere Online-Lernplattform</h2>
+            <div class="preview-grid">
+                <div class="preview-item">
+                    <div class="preview-image">Video-Lektionen</div>
+                    <div class="preview-content">
+                        <h3>Hochwertige Video-Lektionen</h3>
+                        <p>Alle Lerninhalte werden durch professionell produzierte Videoeinheiten vermittelt, die komplexe Themen anschaulich erklären und demonstrieren.</p>
+                    </div>
+                </div>
+
+                <div class="preview-item">
+                    <div class="preview-image">Interaktive Übungen</div>
+                    <div class="preview-content">
+                        <h3>Interaktive Übungen und Quizze</h3>
+                        <p>Festige dein Wissen durch praktische Übungen, Quiz-Fragen und interaktive Aufgaben, die dir direktes Feedback geben.</p>
+                    </div>
+                </div>
+
+                <div class="preview-item">
+                    <div class="preview-image">Community</div>
+                    <div class="preview-content">
+                        <h3>Aktive Lerngemeinschaft</h3>
+                        <p>Tausche dich mit anderen Teilnehmern aus, stelle Fragen und profitiere vom gemeinschaftlichen Lernen in unserem Forum.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="features-section">
+            <h2 class="features-title">Warum unsere Online-Ausbildung?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🕒</div>
+                    <div class="feature-content">
+                        <h3>Flexibles Lernen</h3>
+                        <p>Lerne in deinem eigenen Tempo, wann und wo es für dich am besten passt. Alle Inhalte sind rund um die Uhr verfügbar.</p>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">👨‍🏫</div>
+                    <div class="feature-content">
+                        <h3>Experten-Betreuung</h3>
+                        <p>Unsere Dozenten sind erfahrene Profis aus der Fitnessbranche und stehen dir bei Fragen zur Verfügung.</p>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <div class="feature-content">
+                        <h3>Mobile Learning</h3>
+                        <p>Alle Inhalte sind für mobile Geräte optimiert, sodass du auch unterwegs lernen kannst.</p>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <div class="feature-content">
+                        <h3>Regelmäßige Updates</h3>
+                        <p>Wir aktualisieren unsere Inhalte kontinuierlich, um dir stets die neuesten Erkenntnisse und Trends zu vermitteln.</p>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <div class="feature-content">
+                        <h3>Fortschrittsanalyse</h3>
+                        <p>Verfolge deinen Lernfortschritt mit detaillierten Statistiken und personalisierten Empfehlungen.</p>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🏆</div>
+                    <div class="feature-content">
+                        <h3>Zertifizierung</h3>
+                        <p>Nach erfolgreichem Abschluss erhältst du ein anerkanntes Zertifikat, das deine Qualifikation belegt.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="testimonial-section">
+            <div class="testimonial-container">
+                <h2 class="testimonial-title">Das sagen unsere Absolventen</h2>
+                <div class="testimonial-grid">
+                    <div class="testimonial-card">
+                        <div class="quote-icon">"</div>
+                        <p class="testimonial-text">Was mich an dieser Ausbildung besonders beeindruckt hat, ist die Praxisnähe. Die Online-Plattform ermöglichte es mir, neben meinem Job zu lernen und das Gelernte direkt mit meinen Klienten anzuwenden. Die flexiblen Lernzeiten waren perfekt für meinen durchgetakteten Alltag.</p>
+                        <div class="testimonial-author">
+                            <div class="author-image"></div>
+                            <div class="author-info">
+                                <h4>Sarah Müller</h4>
+                                <p>Personaltrainerin, München</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="quote-icon">"</div>
+                        <p class="testimonial-text">Als ehemaliger Leistungssportler wollte ich mein Wissen erweitern und professionell weitergeben können. Die Ausbildung bei Prometheus hat mir genau das ermöglicht. Besonders das Modul zur Post-Rehabilitation hat mir geholfen, mich auf Klienten mit Verletzungsgeschichte zu spezialisieren.</p>
+                        <div class="testimonial-author">
+                            <div class="author-image"></div>
+                            <div class="author-info">
+                                <h4>Jan Becker</h4>
+                                <p>Athletiktrainer, Berlin</p>
+                            </div>
+                        </div>
+                    </div>
+                        <div class="quote-icon">"</div>
+                        <p class="testimonial-text">Die Prometheus Personaltrainer-Ausbildung hat mir nicht nur fundiertes Fachwissen vermittelt, sondern mich auch optimal auf die Praxis vorbereitet. Besonders die Module zum Geschäftsaufbau haben mir geholfen, mein eigenes Studio erfolgreich zu gründen.</p>
+                        <div class="testimonial-author">
+                            <div class="author-image"></div>
+                            <div class="author-info">
+                                <h4>Markus Schmidt</h4>
+                                <p>Studiobesitzer, Hamburg</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
